@@ -1,0 +1,98 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;900&family=Lexend:wght@300;400;500;600&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Lexend", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Space Grotesk", sans-serif;
+  --font-mono: "Space Grotesk", monospace;
+
+  --color-background: #050505;
+  --color-surface: #131313;
+  --color-primary: #a4e6ff;
+  --color-secondary: #d7ffc5;
+  --color-tertiary: #ffd864;
+  --color-error: #ffb4ab;
+  --color-primary-container: #00d1ff;
+  --color-secondary-container: #2ff801;
+  
+  --spacing-margin-desktop: 64px;
+  --spacing-gutter: 16px;
+}
+
+@layer base {
+  body {
+    @apply bg-background text-zinc-100 font-sans min-h-screen overflow-x-hidden;
+    background: radial-gradient(circle at 50% 50%, #0a111a 0%, #050505 100%);
+  }
+}
+
+@layer components {
+  .glass-card {
+    @apply bg-black/40 backdrop-blur-3xl border border-white/5 relative overflow-hidden;
+    border-radius: 12px;
+  }
+
+  .glass-card::before {
+    content: "";
+    @apply absolute inset-0 bg-gradient-to-tr from-white/10 to-transparent pointer-events-none;
+    opacity: 0.3;
+  }
+
+  /* Liquid Mesh Elements */
+  .mesh-blob {
+    @apply absolute blur-[120px] rounded-full pointer-events-none mix-blend-screen opacity-30;
+  }
+
+  .grid-overlay {
+    @apply fixed inset-0 pointer-events-none z-0;
+    background-image: 
+      linear-gradient(rgba(0, 209, 255, 0.05) 1px, transparent 1px), 
+      linear-gradient(90deg, rgba(0, 209, 255, 0.05) 1px, transparent 1px);
+    background-size: 80px 80px;
+    mask-image: radial-gradient(circle at 50% 50%, black, transparent 80%);
+  }
+
+  .data-glimmer {
+    @apply pointer-events-none opacity-20;
+    background: radial-gradient(600px circle at var(--x) var(--y), rgba(0, 209, 255, 0.15), transparent 40%);
+  }
+
+  .live-pulse {
+    @apply shadow-[0_0_15px_rgba(47,248,1,0.3)] animate-pulse;
+  }
+
+  .glass-card::before {
+    content: "";
+    @apply absolute inset-0 bg-gradient-to-br from-white/5 to-transparent pointer-events-none;
+  }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-20px) rotate(2deg); }
+}
+
+.animate-float {
+  animation: float 10s ease-in-out infinite;
+}
+
+@keyframes scanline {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100%); }
+}
+
+.scanline {
+  @apply fixed inset-0 pointer-events-none opacity-[0.03] z-50;
+  background: linear-gradient(to bottom, transparent, #00d1ff, transparent);
+  height: 50%;
+  animation: scanline 8s linear infinite;
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  animation: marquee 30s linear infinite;
+}
